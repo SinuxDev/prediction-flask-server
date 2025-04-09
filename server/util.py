@@ -25,7 +25,7 @@ def get_estimated_price(location, sqft, bhk, bath):
     return round(__model.predict([x])[0], 2)
 
 
-def get_predicted_medicine_price(item_id, month, year, day):
+def get_predicted_medicine_sale_qty(item_id, month, year, day):
     loc_index = -1
     try:
         loc_index = __data_columns.index(item_id.lower())
@@ -69,4 +69,4 @@ if __name__ == '__main__':
     # print(get_estimated_price('1st Phase JP Nagar', 1000, 2, 2))
     # print(get_estimated_price('Kalhalli', 1000, 2, 2))
     # print(get_estimated_price('Fjipura', 1000, 2, 2))
-    print(get_predicted_medicine_price("649fe69922c5eb76edec5280", "5", "2025","31"))
+    print(get_predicted_medicine_sale_qty("649fe69922c5eb76edec5280", "5", "2025","31"))

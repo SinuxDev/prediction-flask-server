@@ -31,10 +31,10 @@ def predict_price():
         year = int(request.form['year'])
         day = int(request.form['day'])
 
-        estimated_price = util.get_predicted_medicine_price(item_id, month, year, day)
+        estimated_price = util.get_predicted_medicine_sale_qty(item_id, month, year, day)
 
         response = jsonify({
-            'estimated_price': estimated_price
+            'estimated_sale_qty': estimated_price
         })
         response.headers.add("Access-Control-Allow-Origin", "*")
         return response
