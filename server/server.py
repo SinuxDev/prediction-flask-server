@@ -27,20 +27,26 @@ def predict_price():
     if request.method == 'POST':
         try:
             data = request.get_json()
+            # related_branch = request.args.get('branch_id')
 
-            print("Data", data)
+            print("Data:", data)
+            # print("Related Branch:", related_branch)
 
             item_id = data['item_id']
             month = int(data['month'])
             year = int(data['year'])
             day = int(data['day'])
+            related_branch = data['branch_id']
 
-            estimated_price = util.get_predicted_medicine_sale_qty(item_id, month, year, day)
+
+            # Now pass related_branch to the function
+            estimated_price = util.get_predicted_medicine_sale_qty(item_id, month, year, day, related_branch)
 
             return jsonify({
                 'success': True,
                 'message': 'Prediction successful.',
-                'estimated_sale_qty': estimated_price
+                'estimated_sale_qty': estimated_price,
+                'related_branch': related_branch
             }), 200
 
         except KeyError as e:
@@ -59,11 +65,12 @@ def predict_price():
         return jsonify({
             'success': False,
             'message': 'Method not allowed. Please use POST.'
-        }), 405  # ❌ Wrong method
+        }), 405
 
 
 
 if __name__ == "__main__":
     print("Starting Python Flask Server for Home Price Prediction")
     util.load_saved_artifacts()
-    app.run(host="192.168.1.7", debug=True, port=5000)
+    app.run(host="0.0.0.0", debug=False, port=5000)
+
